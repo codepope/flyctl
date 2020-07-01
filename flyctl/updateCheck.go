@@ -90,6 +90,7 @@ type githubReleaseResponse struct {
 func refreshGithubVersion() (string, error) {
 	cv, err := semver.Parse(Version)
 	if err != nil {
+		fmt.Println(err)
 		return "", err
 	}
 	var resp *http.Response
@@ -101,6 +102,7 @@ func refreshGithubVersion() (string, error) {
 	}
 
 	if err != nil {
+		fmt.Println(err)
 		return "", err
 	}
 
@@ -109,8 +111,11 @@ func refreshGithubVersion() (string, error) {
 	data := githubReleaseResponse{}
 
 	if err := json.NewDecoder(resp.Body).Decode(&data); err != nil {
+		fmt.Println(err)
 		return "", err
 	}
+
+	fmt.Println(data.Name)
 
 	return strings.TrimPrefix(data.Name, "v"), nil
 }
