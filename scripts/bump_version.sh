@@ -39,7 +39,7 @@ else
   if [[ $prerelversion == "" ]]; then
     new_version=$("$dir"/../scripts/semver bump "$bump" "$previous_version")
   else
-    newversion=${previous_version//-$prerelversion/}
+    new_version=${previous_version//-$prerelversion/}
   fi
 fi
 
