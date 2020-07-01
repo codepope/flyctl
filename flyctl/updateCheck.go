@@ -34,6 +34,24 @@ func updateAvailable() bool {
 		return false
 	}
 
+	fmt.Println("Comparing ", lv, cv)
+
+	cvpre := len(cv.Pre) != 0
+	lvpre := len(lv.Pre) != 0
+
+	if !cvpre && !lvpre {
+		return lv.GT(cv) // these are non prerelease versions - just compare
+	}
+
+	if cvpre && lvpre {
+		return lv.GT(cv) // these are both prerelease versions - just compare
+	}
+
+	if !cvpre && lvpre {
+		// Here we would want to step back and look for
+		fmt.Println("There there")
+	}
+
 	return lv.GT(cv)
 }
 
@@ -70,10 +88,22 @@ type githubReleaseResponse struct {
 }
 
 func refreshGithubVersion() (string, error) {
-	resp, err := http.Get("https://api.github.com/repos/codepope/flyctl/releases/latest")
+	cv, err := semver.Parse(Version)
 	if err != nil {
 		return "", err
 	}
+	var resp *http.Response
+
+	if len(cv.Pre) == 0 {
+		resp, err = http.Get("https://api.github.com/repos/codepope/flyctl/releases/latest")
+	} else {
+		resp, err = http.Get("https://api.github.com/repos/codepope/flyctl/releases/")
+	}
+
+	if err != nil {
+		return "", err
+	}
+
 	defer resp.Body.Close()
 
 	data := githubReleaseResponse{}
