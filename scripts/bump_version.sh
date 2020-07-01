@@ -27,7 +27,7 @@ previous_version="$("$dir"/../scripts/version.sh -s)"
 
 if [[ $prerel == "prerel" ]]; then
   prerelversion=$("$dir"/../scripts/semver get prerel "$previous_version")
-  if [[ $prerelversion=="" ]]; then
+  if [[ $prerelversion == "" ]]; then
     new_version=$("$dir"/../scripts/semver bump "$bump" "$previous_version")
     new_version=$("$dir"/../scripts/semver bump prerel beta-1 "$new_version")
   else
@@ -36,7 +36,7 @@ if [[ $prerel == "prerel" ]]; then
   fi
 else
   prerelversion=$("$dir"/../scripts/semver get prerel "$previous_version")
-  if [[ $prerelversion=="" ]]; then
+  if [[ $prerelversion == "" ]]; then
     new_version=$("$dir"/../scripts/semver bump "$bump" "$previous_version")
   else
     newversion=${previous_version//-$prerelversion/}
