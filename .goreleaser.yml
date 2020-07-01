@@ -36,12 +36,12 @@ archives:
       windows: Windows
       386: i386
       amd64: x86_64
-dockers:
-  - goos: linux
-    goarch: amd64
-    image_templates:
-      - "flyio/flyctl:latest"
-      - "flyio/flyctl:v{{ .Version }}"
+#dockers:
+#  - goos: linux
+#    goarch: amd64
+#    image_templates:
+#      - "flyio/flyctl:latest"
+#      - "flyio/flyctl:v{{ .Version }}"
 checksum:
   name_template: "checksums.txt"
 snapshot:
@@ -52,14 +52,14 @@ changelog:
     exclude:
       - "^docs:"
       - "^test:"
-brews:
-  - github:
-      owner: superfly
-      name: homebrew-tap
-    folder: Formula
-    homepage: https://fly.io
-    test: |
-      system "#{bin}/flyctl version"
+# brews:
+#   - github:
+#       owner: superfly
+#       name: homebrew-tap
+#     folder: Formula
+#     homepage: https://fly.io
+#     test: |
+#       system "#{bin}/flyctl version"
 
 # snapcrafts:
 #   -

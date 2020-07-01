@@ -70,7 +70,7 @@ type githubReleaseResponse struct {
 }
 
 func refreshGithubVersion() (string, error) {
-	resp, err := http.Get("https://api.github.com/repos/superfly/flyctl/releases/latest")
+	resp, err := http.Get("https://api.github.com/repos/codepope/flyctl/releases/latest")
 	if err != nil {
 		return "", err
 	}
